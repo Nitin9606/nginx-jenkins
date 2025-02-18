@@ -20,10 +20,14 @@ pipeline {
             }
         }
 
-        stage('Run Docker Container') {
+         stage('Run Docker Container') {
             steps {
                 script {
-                    dockerImage.run('-p 8090:80')
+                    // Stop and remove any existing container with the same name
+                    sh 'docker rm -f nginx-container || true'
+                    // Run the new container
+                    dockerImage.run('-p 8090:80 --name web')
+    
                 }
             }
         }
