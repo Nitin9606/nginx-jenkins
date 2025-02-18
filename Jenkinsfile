@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -24,7 +23,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    dockerImage.run('-p 8080:80')
+                    dockerImage.run('-p 8090:80')
                 }
             }
         }
