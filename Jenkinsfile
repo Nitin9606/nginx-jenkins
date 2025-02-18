@@ -11,26 +11,24 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Nitin9606/nginx-jenkins.git'
             }
         }
-    }
         
-        stage("Build and Test"){
-            steps{
+        stage("Build and Test") {
+            steps {
                 echo "Building Docker Image.."
                 sh "docker build -t nginx-jenkins-image ."
-           
-                }
             }
+        }
 
-         stage('Run Docker Container') {
-             steps {
+        stage('Run Docker Container') {
+            steps {
                 echo "Running Docker Container.."
-                    // Stop and remove any existing container with the same name
-                    sh 'docker rm -f nginx-container || true'
-                    // Run the new container using built image
-                    sh "docker run -dit --name web -p 8090:80 nginx-jenkins-image"
-    
-                }
+                // Stop and remove any existing container with the same name
+                sh 'docker rm -f web || true'
+                // Run the new container using built image
+                sh "docker run -dit --name web -p 8090:80 nginx-jenkins-image"
             }
+        }
+    }
 
     post {
         always {
